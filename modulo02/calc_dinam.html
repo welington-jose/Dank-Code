@@ -1,0 +1,44 @@
+<html>
+    <body>
+        <script>
+
+            //Aplicação calculadora dinâmica
+
+            var numeroInicial = prompt('Selecione o primeiro número')
+
+            var sinal = prompt('Informe o sinal da operação')
+
+
+            while(sinal != '-' && sinal != '+' && sinal!= '*' && sinal != '/'){
+                alert('Por favor selecione um sinal válido')
+
+                sinal = prompt('Informe o sinal da operação')
+            }
+
+            var numeroFinal = prompt('Selecione o segundo número')
+
+            //Funções para converter para numero uma string
+            numeroInicial = parseInt(numeroInicial)
+            numeroFinal = parseInt(numeroFinal)
+
+            var resultado = 0
+
+            if(sinal == '+'){
+                resultado = numeroInicial + numeroFinal
+
+            }else if(sinal == '-'){
+                resultado = numeroInicial - numeroFinal
+
+            }else if(sinal == '*'){
+                resultado = numeroInicial * numeroFinal
+
+            }else if(sinal == '/'){
+                resultado = numeroInicial / numeroFinal
+
+            }
+
+            alert(`O resultado da sua conta é ${resultado}`)
+
+        </script>
+    </body>
+</html>
