@@ -1,0 +1,79 @@
+<html>
+    <body>
+        <style>
+            
+         /*   .box{
+                width: 200px;
+                height: 200px;
+                background-color: red;
+                margin-left: 0px;
+            }
+
+            .animEsquerda{
+               
+                transition: 1s;
+                margin-left: 90px;
+                margin-top: 20px;
+                background-color: green;
+            } */
+
+            .conteudo h2 span{
+                font-size: 13px;
+                cursor: pointer;
+            }
+            .conteudo p{
+                overflow: hidden; /* oculta oque excede o elemento pai*/
+                height: 10px;
+                transition: 1s;
+            }
+            .mostrar{
+                height: 200px  !important;  
+            }
+
+        </style>
+        
+          <!--   <div class="box"></div> -->
+        <div class="conteudo">
+            <h2>Título do conteudo <span>Ver mais!</span></h2>
+            <p>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam quaerat mollitia laboriosam dolor magni hic, velit aut voluptates. Facere, voluptates expedita maxime aliquam eos vero odit consequatur doloribus rem nihil Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas aut aliquid, tempora nemo cum voluptatem quidem, culpa sed debitis earum sequi perferendis ex laudantium rem! Eligendi distinctio dolore neque sapiente?Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus corporis inventore voluptatem ut cupiditate vel error veritatis temporibus, hic voluptas ipsa perferendis expedita in atque architecto fugiat harum. Repellendus, necessitatibus. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima quae deserunt quos ratione sed nisi nihil est id quaerat fugiat quas accusantium suscipit, repellat quis, consequatur fuga quidem assumenda aut!
+            </p>
+        </div>
+        
+
+                <script>
+                   // var box = document.querySelectorAll('.box')[0]
+                /*
+                    setTimeout(()=>{
+                        box.classList.add("animEsquerda") // não usa com o ponto ".animEsquerda" 
+                    },1000)
+
+                    */
+                   /*
+                   
+                      box.addEventListener('click', ()=>{
+                    box.classList.add('animEsquerda') // não usa o ponto no inicio para denominar a class
+                  }) 
+                  */
+
+                  var span = document.querySelector('.conteudo span')
+                  span.addEventListener('click', ()=>{
+                    var conteudo = document.querySelector('.conteudo p')
+
+                    if(conteudo.classList.contains('mostrar')){
+                        conteudo.classList.remove('mostrar')
+                        span.innerHTML = ' Ver mais!'
+
+                    }else{
+                        
+                        conteudo.classList.add('mostrar')
+                        span.innerHTML = 'Ocultar'
+                        
+                    }
+
+
+                  })
+
+                </script>
+    </body>
+</html>
