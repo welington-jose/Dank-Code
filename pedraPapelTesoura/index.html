@@ -1,0 +1,111 @@
+<html>
+    <body>
+        <style>
+            *{
+                margin: 0px;
+                padding: 0px;
+                
+            }
+            body h1{
+                text-align: center;
+    
+
+            }
+            .player-options img, .enemy-options img{
+                max-width: 200px;
+                opacity: 0.3;
+                cursor: pointer;
+               width: 50%;
+            }   
+               
+            
+        
+            .align{
+                display: flex;
+                text-align: center;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+            }
+            .resultado{
+                text-align: center;
+            }
+            
+        </style>
+
+            <h1>Pedra, papel ou tesoura!</h1>
+            <br>
+            <h2 class="resultado"></h2>
+
+        <div class="align">
+            <div class="player-options">
+                <div><img opt="pedra" src="rock.png"></div>
+                <div><img opt="papel" src="paper.png"></div>
+                <div><img opt="tesoura" src="scisor.png"></div>
+            </div>
+
+            <div class="enemy-options">
+                <div><img opt="pedra" src="rock.png"></div>
+                <div><img opt="papel" src="paper.png"></div>
+                <div><img opt ="tesoura" src="scisor.png"></div>
+            </div>
+        </div>
+        <script>
+
+            var elementos = document.querySelectorAll('.player-options div > img')
+            var playerOpt = ""
+            var jogAdvOpt = ""
+
+            function resultAdv(){
+                const enemyOptions = document.querySelectorAll('.enemy-options  div')
+                for(var i = 0; i < enemyOptions.length; i++){ 
+                    enemyOptions[i].childNodes[0].style.opacity = 0.3
+                }
+
+            }
+
+            function jogarAdiversario(){
+                let rand = Math.floor(Math.random()*3) // gera um numero aleatório entre 0 e 2.
+             
+                const enemyOptions = document.querySelectorAll('.enemy-options  div')
+                resultAdv()
+
+                
+                for(var i = 0; i < enemyOptions.length; i++){
+                    if(i == rand){
+                    enemyOptions[i].childNodes[0].style.opacity = 1
+                    jogAdvOpt = enemyOptions[i].childNodes[0].getAttribute('opt')
+                    }
+                } 
+
+               
+            }
+            function resetOpacityPlayer(){
+            for(var i = 0; i < elementos.length; i++){ 
+                elementos[i].style.opacity = 0.3
+                }
+            }
+
+            for(var i = 0; i < elementos.length; i++){  
+                elementos[i].addEventListener('click',(t)=>{
+                    resetOpacityPlayer()
+                    t.target.style.opacity = 1
+                    playerOpt = t.target.getAttribute('opt')
+
+                    jogarAdiversario()
+                    document.querySelector('.resultado').textContent = resultado(playerOpt, jogAdvOpt,)
+                    
+                })
+            }
+            function resultado(player, adversario){
+                if(player === adversario){
+                    return "Empate!"
+                } else if(player === "pedra" && adversario === "tesoura" || player === "papel" && adversario === "pedra" || player === "tesoura" && adversario === "papel"){
+                    return "Você ganhou!"
+                } else{
+                    return "Você perdeu!"
+                }
+            }
+        </script>
+    </body>
+</html>
