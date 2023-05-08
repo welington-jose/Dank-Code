@@ -1,0 +1,22 @@
+<html>
+    <body>
+        <script>
+
+            const options = {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                'cobli-api-key': '7lNQYLj.e304e0bc-16b1-4030-9ee0-20e4a09c8903'
+            }
+            };
+
+            fetch('https://api.cobli.co/public/v1/vehicles/6e2cc444-a7fd-48c1-987c-213a88cb638c/odometer', options)
+            .then(response => response.json())
+            .then(response => console.log(response))
+            .catch(err => console.error(err));
+
+                        
+
+        </script>
+    </body>
+</html>
