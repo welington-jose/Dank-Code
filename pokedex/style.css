@@ -7,10 +7,11 @@ body{
     background-color: aqua;
 }
 .main{
-    margin: 20px 0;
+    margin: 20px 10%;
     max-width: 1380px; /*responsivo*/
     background-color: white;
     padding: 30px 2%;
+    text-align: center;
 }
 .main h2{
     font-size: 45px;
@@ -20,9 +21,12 @@ body{
 .pokemon-boxes{
     display: flex;
     flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+
 }
 .pokemon-box{
-    width: 29%;
+    width: 20%;
     margin:20px 2%;
     border-radius: 10px;
     background-color: rgb(230, 230, 230);
