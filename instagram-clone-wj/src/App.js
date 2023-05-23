@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import firebase from'./firebase'
 import { useEffect, useState} from 'react';
+import logoInstagram from './logo_instagram.png'
 
 function App() {
 
@@ -14,7 +15,7 @@ function App() {
     <div className="App">
       <div className='header'>
         <div className='header_logo'>
-          <a href=''><img src=''/></a>
+          <a href=''><img src={logoInstagram}/></a>
         </div>
         <div className='header_loginForm'>
           <form>
