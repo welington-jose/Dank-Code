@@ -1,25 +1,25 @@
-import './App.css';
-import firebase from'./firebase'
-import { useEffect, useState} from 'react';
-import Header from './Header'
-import logoInstagram from './logo_instagram.png'
+  import './App.css';
+  import { db } from './firebase.js';
+  import { useEffect, useState} from 'react';
+  import Header from './Header'
+  import logoInstagram from './logo_instagram.png'
 
-function App() {
+  function App() {
 
-  const [user, setUser] = useState("Welington José")
+    const [user, setUser] = useState("Welington José")
 
-  useEffect(()=>{
-    
-  },[])
-  return (
+    useEffect(()=>{
+      
+    },[])
+    return (
 
-    <div className="App">
+      <div className="App">
 
-      <Header setUser={setUser} user={user}> </Header>
+        <Header setUser={setUser} user={user}> </Header>
 
-    </div>
+      </div>
 
-  );
-}
+    );
+  }
 
-export default App;
+  export default App;
