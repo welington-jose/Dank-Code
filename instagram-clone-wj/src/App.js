@@ -1,5 +1,5 @@
 import './App.css';
-import { db } from './firebase.js';
+import { db, auth} from './firebase.js';
 import { useEffect, useState } from 'react';
 import Header from './Header';
 
@@ -11,13 +11,19 @@ function App() {
 
   useEffect(() => {
 
+    auth.onAuthStateChanged((val)=>{
+      setUser(val?.displayName || null);
+    })
+      
+    })
+
     db.collection('posts').orderBy('timestamp', 'desc').onSnapshot((snapshot) => {
       setPosts(snapshot.docs.map((document) => {
         return { id: document.id, info: document.data() }
       }))
 
     })
-  }, []);
+  
 
   function handleChangeComentario(event) {
     setComentario(event.target.value);
@@ -39,7 +45,7 @@ function App() {
                 {
                   comentario.length > 0 &&(
                 
-                <button id="publicar-btn" class="publicar-btn">Publicar</button>
+                <button class="publicar-btn">Publicar</button>
                   )}
 
               </form>

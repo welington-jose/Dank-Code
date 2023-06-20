@@ -193,6 +193,8 @@ body {
 
 .postSingle img {
     width: 100%;
+    display: block;
+
 
 }
 
@@ -210,16 +212,18 @@ body {
 
 .publicar-btn {
     position: absolute;
-    top: -40px;
+    top: initial;
     right: 0;
     background: none;
     border: none;
     margin: 0px;
     padding: 0 5px;
+    padding-top: 10px;
     cursor: pointer;
     color: #0095f6;
-    font-weight: bold;
+
 }
+
 #comentario{
     padding: 0 72% 0 0;
 }

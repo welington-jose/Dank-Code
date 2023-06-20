@@ -89,6 +89,15 @@ function Header(props) {
     modal.style.display = "none";
 
   }
+  function deslogar(e){
+    e.preventDefault();
+    auth.signOut((val)=>{
+      props.setUser(null);
+    })
+    
+
+  }
+
   function uploadPost(e) {
     e.preventDefault();
     let tituloPost = document.getElementById("titulo-upload").value;
@@ -161,6 +170,7 @@ function Header(props) {
             <div className="header__logadoInfo">
               <span>Olá, <b>{props.user}</b></span>
               <a onClick={(e) => abrirModalUpload(e)} href="#">Postar!</a>
+              <a onClick={(e) => deslogar(e)}>Sair</a>
             </div>
             :
             <div className="header__loginForm">
