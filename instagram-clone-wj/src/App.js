@@ -2,6 +2,7 @@ import './App.css';
 import { db, auth} from './firebase.js';
 import { useEffect, useState } from 'react';
 import Header from './Header';
+import Post from './Post';
 
 function App() {
 
@@ -19,7 +20,7 @@ function App() {
 
     db.collection('posts').orderBy('timestamp', 'desc').onSnapshot((snapshot) => {
       setPosts(snapshot.docs.map((document) => {
-        return { id: document.id, info: document.data() }
+        return { id:document.id, info:document.data() }
       }))
 
     })
@@ -29,6 +30,8 @@ function App() {
     setComentario(event.target.value);
   }
 
+ 
+
   return (
     <div className="App">
 
@@ -36,20 +39,10 @@ function App() {
 
       {
         posts.map((val) => {
-          return (
-            <div className='postSingle'>
-              <img src={val.info.image} />
-              <p><b>{val.info.userName}</b> {val.info.titulo}</p>
-              <form>
-                <input id='comentario' type='text' placeholder='Adicione comentário...' value={comentario} onChange={handleChangeComentario}/>
-                {
-                  comentario.length > 0 &&(
-                
-                <button class="publicar-btn">Publicar</button>
-                  )}
-
-              </form>
-            </div>
+          
+          return(
+            <Post user={user} info={val.info} id={val.id}/>
+            
           )
         })
       }

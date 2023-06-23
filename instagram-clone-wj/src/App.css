@@ -183,7 +183,6 @@ body {
 }
 
 .postSingle {
-    position: relative;
     background-color: white;
     max-width: 700px;
     margin: 10px auto;
@@ -202,7 +201,7 @@ body {
     padding: 10px;
 }
 
-.postSingle input {
+/*.postSingle input {
     margin: 10px;
     padding: 5px;
     border: none;
@@ -223,7 +222,26 @@ body {
     color: #0095f6;
 
 }
-
-#comentario{
-    padding: 0 72% 0 0;
+*/
+.postSingle form{
+padding: 20px;
+text-align: right;
 }
+.postSingle textarea{
+    width: 100%;
+    height:120px;
+    border: 1px solid #ccc;
+    padding: 10px;
+
+}
+.postSingle input[type=submit]{
+    background-color: #0095f6;
+    cursor: pointer;
+    color: white;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 8px;
+    
+    
+}
+

@@ -5,6 +5,7 @@ import 'firebase/compat/auth';
 import 'firebase/compat/storage';
 import 'firebase/compat/functions';
 import { auth, storage, db } from './firebase';
+import userEvent from '@testing-library/user-event';
 
 
 function Header(props) {
@@ -49,9 +50,10 @@ function Header(props) {
     let senha = document.getElementById('senha-login').value;
 
     auth.signInWithEmailAndPassword(email, senha)
-      .then((auth) => {
-        props.setUser(auth.user.displayName);
-        alert('Logado com sucesso!');
+      .then((authUser) => {
+        props.setUser(authUser.user.displayName);
+        alert(`Bem-vindo, ${authUser.user.displayName}!`);
+        window.location.href = "/";
       }).catch((err) => {
         alert(err.message);
       })
@@ -91,8 +93,9 @@ function Header(props) {
   }
   function deslogar(e){
     e.preventDefault();
-    auth.signOut((val)=>{
+    auth.signOut().then((val)=>{
       props.setUser(null);
+      window.location.href = "/";
     })
     
 
@@ -116,7 +119,7 @@ function Header(props) {
           titulo: tituloPost,
           image: url,
           userName: props.user,
-          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          timestamp:  firebase.firestore.FieldValue.serverTimestamp(),
         })
         setProgress(0);
         setFile(null)
@@ -124,6 +127,7 @@ function Header(props) {
         alert("Upload realizado com sucesso!");
 
         document.getElementById("form-upload").reset();
+        fecharModalUpload();
       })
     })
 
