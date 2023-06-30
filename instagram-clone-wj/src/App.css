@@ -4,6 +4,9 @@
     box-sizing: border-box;
 }
 
+@import url('https://fonts.googleapis.com/css2?family= Freehand & display=swap') ;
+
+
 body {
     background-color: rgb(220, 220, 220);
 }
@@ -244,4 +247,9 @@ text-align: right;
     
     
 }
+#boasVindas{
+    font-size: 70px;
+    font-weight: bolder;
+    font-family: 'Freehand', cursive;
 
+}

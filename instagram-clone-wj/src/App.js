@@ -1,22 +1,26 @@
 import './App.css';
-import { db, auth} from './firebase.js';
 import { useEffect, useState } from 'react';
+import { db, auth } from './firebase';
 import Header from './Header';
 import Post from './Post';
 
 function App() {
 
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
   const [posts, setPosts] = useState([]);
-  const [comentario, setComentario] = useState('');
+  
 
   useEffect(() => {
 
     auth.onAuthStateChanged((val)=>{
-      setUser(val?.displayName || null);
-    })
+      if(val != null){
+      setUser(val.displayName)
+      }else {
+        setUser(null); // Define o usuário como nulo ao fazer logout
+      }
+    });
       
-    })
+   
 
     db.collection('posts').orderBy('timestamp', 'desc').onSnapshot((snapshot) => {
       setPosts(snapshot.docs.map((document) => {
@@ -24,29 +28,26 @@ function App() {
       }))
 
     })
-  
 
-  function handleChangeComentario(event) {
-    setComentario(event.target.value);
-  }
+    },[]);
 
- 
+    
 
   return (
     <div className="App">
 
       <Header setUser={setUser} user={user}></Header>
 
-      {
-        posts.map((val) => {
-          
-          return(
-            <Post user={user} info={val.info} id={val.id}/>
-            
-          )
-        })
-      }
+      {user ? (
+        posts.map((val) => <Post key={val.id} user={user} info={val.info} id={val.id} />)
+      ) : (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '89vh'}}>
+        <p id='boasVindas' style={{ textAlign: 'center' }}>
+          Programmed by<br />
+          WELINGTON JOSÉ</p>
+</div>
 
+      )}
     </div>
   );
 
@@ -54,3 +55,4 @@ function App() {
 }
 
 export default App;
+
