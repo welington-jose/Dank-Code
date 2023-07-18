@@ -6,63 +6,76 @@ import { db } from './firebase';
 
 function Post(props){
 
-    const [comentarios,setComentarios] = useState([]);
+    const [comentarios,     setComentarios] = useState([]);
 
     useEffect(()=>{
 
-        db.collection('posts').doc(props.id).collection('comentários').orderBy('timestamp', 'desc').onSnapshot((snapshot) => {
-            setComentarios(snapshot.docs.map((document) => {
-              return { id:document.id, info:document.data() }
-            }))
-      
-          })
-    },[props.id])
+        const unsubscribe = db
+      .collection('posts')
+      .doc(props.id)
+      .collection('comentarios')
+      .orderBy('timestamp', 'desc')
+      .onSnapshot((snapshot) => {
+        setComentarios(
+          snapshot.docs.map((doc) => ({ id: doc.id, info: doc.data() }))
+        );
+      });
 
-    function comentar(id, e){
-        e.preventDefault();
+    return () => {
+      unsubscribe();
+    };
+  }, [props.id]);
 
-        let comentarioAtual = document.querySelector('#comentario-'+id).value;
+  const handleCommentSubmit = (e) => {
+    e.preventDefault();
+    const commentInput = document.querySelector(`#comentario-${props.id}`);
+    const comentarioAtual = commentInput.value.trim();
 
-
-        db.collection('posts').doc(id).collection('comentários').add({
-            nome: props.user,
-            comentario: comentarioAtual,
-            timestamp:  firebase.firestore.FieldValue.serverTimestamp(),
+    if (comentarioAtual !== '') {
+      db.collection('posts')
+        .doc(props.id)
+        .collection('comentarios')
+        .add({
+          nome: props.user,
+          comentario: comentarioAtual,
+          timestamp: new Date(),
+        })
+        .then(() => {
+          alert('Comentário feito com sucesso!');
+          commentInput.value = '';
+        })
+        .catch((error) => {
+          console.error('Erro ao adicionar comentário:', error);
         });
+    }
+  };
 
-        alert('Comentário feito com sucesso!');
+  return (
+    <div className="postSingle">
+    <p id='userPost'>{props.info.userName}</p>
+      <img src={props.info.image} alt="" />
+      <p>
+         {props.info.titulo}
+      </p>
 
-        document.querySelector('#comentario-'+id).value ="";
-      }
-    
-    return(
-        <div className='postSingle'>
-            <img src={props.info.image} alt='' />
-            <p><b>{props.info.userName}</b> {props.info.titulo}</p>
+      <div className="coments">
+        {comentarios.map((comentario) => (
+          <div key={comentario.id} className="coment-single">
+            <p>
+              <b>{comentario.info.nome}</b> {comentario.info.comentario}
+            </p>
+          </div>
+        ))}
+      </div>
 
-            <div className='coments'>
-
-                {
-                    comentarios.map((val)=>{
-                        return(
-                            <div className='coment-single'>
-                                <p><b>{val.info.nome}</b> {val.info.comentario}</p> 
-                            </div>
-                        )
-                    })
-                }
-            </div>
-            {
-            (props.user)?
-            <form onSubmit={(e)=>comentar(props.id,e)}>
-              <textarea id={'comentario-'+props.id}></textarea>
-              <input type='submit' value='Comentar!'/>
-            </form>
-            : <div></div>    
-            }
-            
-           </div> 
-    )
+      {props.user ? (
+        <form onSubmit={handleCommentSubmit}>
+            <input type='text' id={`comentario-${props.id}`} placeholder='Adicionar comentário...'/>
+            <input type="submit" value="Publicar..."/>
+        </form>
+      ) : null}
+    </div>
+  );
 }
-export default Post;
 
+export default Post;
